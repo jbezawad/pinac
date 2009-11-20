@@ -156,7 +156,7 @@ public partial class PlotReceiver
     private void parsePaint()
     {
        
-        //paint.Plottitle = paint.Plottitle==null?"sample plot":p1.PlotTitle;
+        paint.Plottitle = p1.PlotTitle==null?"sample plot":p1.PlotTitle;
         //paint.X_Fact = paint.X_Fact!=1?paint.X_Fact:1;
         //paint.Y_Fact = paint.Y_Fact != 1 ? paint.Y_Fact : 1;
         //paint.Xtitle = paint.Xtitle != "X-Axis" ? paint.Xtitle : "X-Axis";//paint.Xtitle = "X-axis";
