@@ -469,7 +469,7 @@ namespace Spinach
             Point max = MaxPoint();
             double orix = ((max.X >= 0 && min.X <= 0) || (max.X <= 0 && min.X >= 0)) ? Math.Abs(min.X) + 1 : (min.X > 0) ? 1 : Math.Abs(min.X) + 1;
             double oriy = ((max.Y >= 0 && min.Y <= 0) || (max.Y <= 0 && min.Y >= 0)) ? Math.Abs(min.Y) + 1 : (min.Y > 0) ? 1 : Math.Abs(min.Y) + 1;
-            Origin = new Point(orix * spanX, activeCanvas.Height - ((oriy * spanY)));
+            Origin = new Point(orix * spanX+20, activeCanvas.Height - ((oriy * spanY))-20);
         }
 
         // made by rushabh
@@ -479,8 +479,8 @@ namespace Spinach
             Point maxPt = MaxPoint();
             double Xlen = ((maxPt.X >= 0 && minPt.X <= 0) || (maxPt.X <= 0 && minPt.X >= 0)) ? (Math.Abs(maxPt.X) + Math.Abs(minPt.X)) + 2 : (minPt.X > 0) ? maxPt.X + 2 : Math.Abs(minPt.X) + 2;
             double Ylen = ((maxPt.Y >= 0 && minPt.Y <= 0) || (maxPt.Y <= 0 && minPt.Y >= 0)) ? (Math.Abs(maxPt.Y) + Math.Abs(minPt.Y)) + 2 : (minPt.Y > 0) ? maxPt.Y + 2 : Math.Abs(minPt.Y) + 2;
-            spanX = (int)(activeCanvas.Width / Xlen / factx);
-            spanY = (int)(activeCanvas.Height / Ylen / facty);
+            spanX = (int)((activeCanvas.Width-40) / Xlen / factx);
+            spanY = (int)((activeCanvas.Height-40) / Ylen / facty);
             spanX=spanX==0?1:spanX;
             spanY=spanY==0?1:spanY;
         }
@@ -496,24 +496,24 @@ namespace Spinach
             Line l = new Line();
             l.X1 = origin.X;
             l.Y1 = origin.Y;
-            l.X2 = activeCanvas.Width;
+            l.X2 = activeCanvas.Width - 20;
             l.Y2 = origin.Y;
             l.Stroke = Brushes.Black;
             Line ly = new Line();
             ly.X1 = origin.X;
-            ly.Y1 = origin.Y - activeCanvas.Height;
+            ly.Y1 = (origin.Y - activeCanvas.Height) < 20 ? 20 : origin.Y - activeCanvas.Height;
             ly.X2 = origin.X;
             ly.Y2 = origin.Y;
             ly.Stroke = Brushes.Black;
             Line l1 = new Line();
             l1.X1 = origin.X;
             l1.Y1 = origin.Y;
-            l1.X2 = 0;
+            l1.X2 = 20;
             l1.Y2 = origin.Y;
             l1.Stroke = Brushes.Black;
             Line ly1 = new Line();
             ly1.X1 = origin.X;
-            ly1.Y1 = activeCanvas.Height;
+            ly1.Y1 = activeCanvas.Height - 20;
             ly1.X2 = origin.X;
             ly1.Y2 = origin.Y;
             ly1.Stroke = Brushes.Black;
@@ -526,8 +526,8 @@ namespace Spinach
             GeometryGroup gg = new GeometryGroup();
 
             int jx, jy, xtext, ytext;
-            int xpart = (int)activeCanvas.Width / spanX;
-            int ypart = (int)activeCanvas.Height / spanY;
+            int xpart = (int)(activeCanvas.Width - 40) / spanX;
+            int ypart = (int)(activeCanvas.Height - 40) / spanY;
             //xtext = jx = (xpart < 25) ? 1 : (xpart < 50) ? 2 : (xpart < 100) ? 5 : (xpart < 200) ? 10 : 50;
             //ytext = jy = (ypart < 25) ? 1 : (ypart < 50) ? 2 : (ypart < 100) ? 5 : (ypart < 200) ? 10 : 50;
             xtext = jx = Math.Ceiling((double)xpart / 10) == 0 ? 1 : (int)Math.Ceiling((double)xpart / 10);
@@ -539,12 +539,12 @@ namespace Spinach
 
             setText(Convert.ToString(0), new Point(origin.X - 5, origin.Y));
             gg.Children.Add(new EllipseGeometry(origin, 2, 2));
-            while ((origin.X + xstep < activeCanvas.Width) || (origin.Y + ystep > 0) || (origin.X - xstep > 0) || (origin.Y - ystep < activeCanvas.Height))
+            while ((origin.X + xstep < activeCanvas.Width - 40) || (origin.Y + ystep > 20) || (origin.X - xstep > 20) || (origin.Y - ystep < activeCanvas.Height - 40))
             {
-                Point px = (origin.X + xstep < activeCanvas.Width) ? new Point(origin.X + xstep, origin.Y) : new Point(origin.X, origin.Y);
-                Point py = (origin.Y + ystep > 0) ? new Point(origin.X, origin.Y + ystep) : new Point(origin.X, origin.Y);
-                Point pnx = (origin.X - xstep > 0) ? new Point(origin.X - xstep, origin.Y) : new Point(origin.X, origin.Y);
-                Point pny = (origin.Y - ystep < activeCanvas.Height) ? new Point(origin.X, origin.Y - ystep) : new Point(origin.X, origin.Y);
+                Point px = (origin.X + xstep < activeCanvas.Width - 40) ? new Point(origin.X + xstep, origin.Y) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point py = (origin.Y + ystep > 20) ? new Point(origin.X, origin.Y + ystep) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point pnx = (origin.X - xstep > 20) ? new Point(origin.X - xstep, origin.Y) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point pny = (origin.Y - ystep < activeCanvas.Height - 40) ? new Point(origin.X, origin.Y - ystep) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
 
                 elg = new EllipseGeometry(px, 2, 2);
                 setText(Convert.ToString(xtext), new Point(origin.X + xstep, origin.Y));
@@ -582,24 +582,24 @@ namespace Spinach
             Line l = new Line();
             l.X1 = origin.X;
             l.Y1 = origin.Y;
-            l.X2 = activeCanvas.Width;
+            l.X2 = activeCanvas.Width - 20;
             l.Y2 = origin.Y;
             l.Stroke = Brushes.Black;
             Line ly = new Line();
             ly.X1 = origin.X;
-            ly.Y1 = origin.Y - activeCanvas.Height;
+            ly.Y1 = (origin.Y - activeCanvas.Height) < 20 ? 20 : origin.Y - activeCanvas.Height;
             ly.X2 = origin.X;
             ly.Y2 = origin.Y;
             ly.Stroke = Brushes.Black;
             Line l1 = new Line();
             l1.X1 = origin.X;
             l1.Y1 = origin.Y;
-            l1.X2 = 0;
+            l1.X2 = 20;
             l1.Y2 = origin.Y;
             l1.Stroke = Brushes.Black;
             Line ly1 = new Line();
             ly1.X1 = origin.X;
-            ly1.Y1 = activeCanvas.Height;
+            ly1.Y1 = activeCanvas.Height - 20;
             ly1.X2 = origin.X;
             ly1.Y2 = origin.Y;
             ly1.Stroke = Brushes.Black;
@@ -612,8 +612,8 @@ namespace Spinach
             GeometryGroup gg = new GeometryGroup();
 
             int jx, jy, xtext, ytext;
-            int xpart = (int)activeCanvas.Width / spanX;
-            int ypart = (int)activeCanvas.Height / spanY;
+            int xpart = (int)(activeCanvas.Width - 20) / spanX;
+            int ypart = (int)(activeCanvas.Height - 20) / spanY;
             xtext = jx = (xpart < 25) ? 1 : (xpart < 50) ? 2 : (xpart < 100) ? 5 : (xpart < 200) ? 10 : 50;
             ytext = 10;
             jy = 10;
@@ -623,12 +623,12 @@ namespace Spinach
 
             setText(Convert.ToString(0), new Point(origin.X - 5, origin.Y));
             gg.Children.Add(new EllipseGeometry(origin, 2, 2));
-            while ((origin.X + xstep < activeCanvas.Width) || (origin.Y + ystep > 0) || (origin.X - xstep > 0) || (origin.Y - ystep < activeCanvas.Height))
+            while ((origin.X + xstep < activeCanvas.Width - 40) || (origin.Y + ystep > 20) || (origin.X - xstep > 20) || (origin.Y - ystep < activeCanvas.Height - 40))
             {
-                Point px = (origin.X + xstep < activeCanvas.Width) ? new Point(origin.X + xstep, origin.Y) : new Point(origin.X, origin.Y);
-                Point py = (origin.Y + ystep > 0) ? new Point(origin.X, origin.Y + ystep) : new Point(origin.X, origin.Y);
-                Point pnx = (origin.X - xstep > 0) ? new Point(origin.X - xstep, origin.Y) : new Point(origin.X, origin.Y);
-                Point pny = (origin.Y - ystep < activeCanvas.Height) ? new Point(origin.X, origin.Y - ystep) : new Point(origin.X, origin.Y);
+                Point px = (origin.X + xstep < activeCanvas.Width - 40) ? new Point(origin.X + xstep, origin.Y) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point py = (origin.Y + ystep > 20) ? new Point(origin.X, origin.Y + ystep) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point pnx = (origin.X - xstep > 20) ? new Point(origin.X - xstep, origin.Y) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
+                Point pny = (origin.Y - ystep < activeCanvas.Height - 40) ? new Point(origin.X, origin.Y - ystep) : new Point(activeCanvas.Width + 10, activeCanvas.Height + 10);
 
                 elg = new EllipseGeometry(px, 2, 2);
                 setText(Convert.ToString(xtext), new Point(origin.X + xstep, origin.Y));
@@ -677,7 +677,7 @@ namespace Spinach
             pf.StartPoint = pt;
             EllipseGeometry elg = new EllipseGeometry(pt, 2, 2);
             s.Children.Add(elg);
-            setText(pointToText(stpoint), pt);
+            setText(stpoint.X.ToString() + "," + stpoint.Y.ToString(), pt);
             for (int i = 1; i < pointslist.Count; i++)
             {
                 Point point = pointslist[i];
@@ -712,7 +712,7 @@ namespace Spinach
             Point max = MaxPoint();
             double orix = ((max.X >= 0 && min.X <= 0) || (max.X <= 0 && min.X >= 0)) ? Math.Abs(min.X) + 1 : (min.X > 0) ? 1 : Math.Abs(min.X) + 1;
             double oriy = ((Math.Log10(max.Y) >= 0 && Math.Log10(min.Y) <= 0) || (Math.Log10(max.Y) <= 0 && Math.Log10(min.Y) >= 0)) ? Math.Abs(Math.Log10(min.Y)) : (Math.Log10(min.Y) > 0) ? 0.1 : Math.Abs(Math.Log10(min.Y));
-            Origin = new Point(orix * spanX, activeCanvas.Height - ((oriy * spanY)));
+            Origin = new Point(orix * spanX + 20, activeCanvas.Height - ((oriy * spanY)) - 20);
         }
 
         // made by rushabh
@@ -723,8 +723,8 @@ namespace Spinach
             double Xlen = ((maxPt.X >= 0 && minPt.X <= 0) || (maxPt.X <= 0 && minPt.X >= 0)) ? (Math.Abs(maxPt.X) + Math.Abs(minPt.X)) + 2 : (minPt.X > 0) ? maxPt.X + 2 : Math.Abs(minPt.X) + 2;
             double Ylen = Math.Ceiling(((Math.Log10(maxPt.Y) >= 0 && Math.Log10(minPt.Y) <= 0) || (Math.Log10(maxPt.Y) <= 0 && Math.Log10(minPt.Y) >= 0)) ? (Math.Abs(Math.Log10(maxPt.Y)) + Math.Abs(Math.Log10(minPt.Y))) : ((Math.Log10(minPt.Y)) > 0) ? Math.Log10(maxPt.Y) : Math.Abs(Math.Log10(minPt.Y)));
             Ylen += Ylen / 10;
-            spanX = (int)(activeCanvas.Width / Xlen / factx);
-            spanY = (int)(activeCanvas.Height / Ylen / facty);
+            spanX = (int)((activeCanvas.Width - 40) / Xlen / factx);
+            spanY = (int)((activeCanvas.Height - 40) / Ylen / facty);
         }
 
         #endregion
