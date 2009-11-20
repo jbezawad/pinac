@@ -194,10 +194,10 @@ namespace Spinach
         {
             Point point = new Point();
             double x = (activeCanvas.Width - Origin.X);
-            x = 0.8 * x;
+            x = 0.5 * x;
             point.X = x + Origin.X;
             double y = activeCanvas.Height - Origin.Y;
-            point.Y = 0.2 * y;
+            point.Y = 0.4 * y;
             setText(title, point);
 
         }

@@ -1,0 +1,5 @@
+C:\Users\ROHAN\pinac\Spinach\SPINACH_DLLS\InterpreterCore.dll
+C:\Users\ROHAN\pinac\Spinach\SPINACH_DLLS\InterpreterCore.pdb
+C:\Users\ROHAN\pinac\Spinach\InterpreterCore\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ROHAN\pinac\Spinach\InterpreterCore\obj\Debug\InterpreterCore.dll
+C:\Users\ROHAN\pinac\Spinach\InterpreterCore\obj\Debug\InterpreterCore.pdb

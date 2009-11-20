@@ -1,0 +1,12 @@
+C:\Users\ROHAN\pinac\Spinach\Spinach\bin\Debug\Spinach.exe
+C:\Users\ROHAN\pinac\Spinach\Spinach\bin\Debug\Spinach.pdb
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Window1.baml
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Window1.g.cs
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\App.g.cs
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach_MarkupCompile.cache
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach.g.resources
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach.Properties.Resources.resources
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach.csproj.GenerateResource.Cache
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach.exe
+C:\Users\ROHAN\pinac\Spinach\Spinach\obj\Debug\Spinach.pdb
