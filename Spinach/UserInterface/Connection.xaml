@@ -1,9 +1,9 @@
 ﻿<Window x:Class="Spinach.Connection"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="SPINACH - Connection" Height="318" Width="514" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="CanResize" Icon="/Spinach;component/Icon.JPG" Background="Lavender" Loaded="Window_Loaded" FontFamily="Segoe UI" FontSize="12" Name="frmConnection">
+    Title="SPINACH - Connection" Height="318" Width="514" WindowStartupLocation="CenterScreen" HorizontalAlignment="Center" VerticalAlignment="Center" ResizeMode="NoResize" Icon="/Spinach;component/Icon.JPG" Background="Lavender" Loaded="Window_Loaded" FontFamily="Segoe UI" FontSize="12" Name="frmConnection">
     <Grid>
-    <Label HorizontalAlignment="Left" Margin="37,140,0,117" Name="lblSelfIP" Width="80" FontFamily="Segoe UI" FontSize="12">IP Address</Label>
+    <Label Margin="37,0,0,119" Name="lblSelfIP" FontFamily="Segoe UI" FontSize="12" HorizontalAlignment="Left" Width="80" Height="23" VerticalAlignment="Bottom">IP Address</Label>
     <TextBox Margin="132,0,0,117" Name="txtSelfIP" HorizontalAlignment="Left" Width="105" FontFamily="Segoe UI" Height="23" VerticalAlignment="Bottom" TabIndex="1" FontSize="12" />
     <Label HorizontalAlignment="Left" Margin="37,0,0,87" Name="lblPort" Width="80" Height="23" VerticalAlignment="Bottom" FontFamily="Segoe UI" FontSize="12">Port No.</Label>
     <TextBox Margin="132,0,0,86" Name="txtPort" Height="23" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="105" FontFamily="Segoe UI" TabIndex="2" FontSize="12" />

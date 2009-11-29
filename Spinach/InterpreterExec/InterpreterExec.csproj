@@ -49,6 +49,7 @@
       <HintPath>..\SPINACH_DLLS\Plot.dll</HintPath>
     </Reference>
     <Reference Include="StringTemplate, Version=3.0.1.6846, Culture=neutral, PublicKeyToken=beee492b52c41e85, processorArchitecture=MSIL" />
+    <Reference Include="SwarmComputing, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>

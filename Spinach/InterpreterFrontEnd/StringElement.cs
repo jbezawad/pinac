@@ -9,50 +9,27 @@
 ////////////////////////////////////////////////////////////////////////
 using System;
 using System.Collections.Generic;
+using System.Collections;
+using System.Data;
+using System.Text;
 
 public class StringElement : Element
 {
+    StringBuilder sb;
 
-    String mText;
-    List<Element> strlist=new List<Element>();
+    public StringElement()
+    {
+        sb = new StringBuilder();
+    }
 
     public override void Accept(Visitor visitor)
     {
         visitor.VisitStringElement(this);
     }
 
-    public String getText() { return mText; }
-    public void setText(Element value) 
+    public string getText() { return sb.ToString(); }
+    public void setText(string value) 
     {
-        strlist.Add(value);
-
-    }
-    public String appendText()
-    {
-        if (strlist.Count != 0)
-        {
-            for (int i = 0; i < strlist.Count; i++)
-            {
-                Element element = strlist[i];
-                if (element is VariableElement)
-                {
-                    VariableElement var_elem = (VariableElement)element;
-                    mText += var_elem.getText();
-                }
-                else if (element is IntegerElement)
-                {
-                    IntegerElement int_elem = (IntegerElement)element;
-                    mText += int_elem.getText();
-                }
-                else if (element is DoubleElement)
-                {
-                    DoubleElement double_elem = (DoubleElement)element;
-                    mText += double_elem.getText();
-                }
-            }
-        }
-        else
-            mText = "";
-        return mText;
+        sb.Append(value);
     }
 }

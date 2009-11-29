@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////
-// Core.cs: Implements a vistor that interprets the syntax tree.
+// Core.cs: Executive for core processing of the SPINACH code.
 // 
 // version: 1.0
 // Description: part of the interpreter example for the visitor design
@@ -15,17 +15,17 @@
 /*
  * Module Operations
  * ================= 
- * This file provides functionalities which interprets the tree, according to the 
- * elements present in it, i.e. it invokes addition functionality if it encounters
- * a '+' symbol, multiplication functionality if '*' symbol is encontered, etc. 
- * Similarly,it invokes variable, integer, assignment, matrix assignment, print and 
- * for loop functionalities as and when these are encountered. The functionalities 
- * associated with these various operations, will further go into the tree to evaluate 
- * them.
+ * This file provides APIs to be used by other teams for communicating with 
+ * the core. It provides a setAST() function which receives the Abstract Syntax 
+ * Tree. Using this tree, we execute the entire code and perform semantic analysis
+ * as well.
+ * 
+ * We also send the code execution results and errors to the User Interface using 
+ * sendres() and result().
  * 
  * Public Interface
  * ================
- * Core interp_visitor = new Core();  
+ * Core core = new Core();  
  *                       // will create an instance of this class and allocate memory
  * 
  */
@@ -60,16 +60,40 @@ namespace Spinach
         public delegate void resultcore(string coremsg);
         public event resultcore rescore_;
 
+        public delegate void executeParallel(string body, string data, int start, int stop);
+        public event executeParallel parallelcore_;
+
+        public delegate void getResults(List<string> results);
+        public event getResults parallelresult_;
+
         private int flag = -1;
+        private int totalLines = 0;
+        private int Visited = 0;
+        SwarmMemory smem;
  
         public void sendres(int code, string errormsg)
         {
             if (errorcore_ != null)
             {
-                errorcore_(code, errormsg);
-                flag = 1;
+                if (flag == -1)
+                {
+                    errorcore_(code, errormsg);
+                    flag = 1;
+                }
+                
             }
 
+        }
+
+        public void getParallelResult(List<string> results)
+        {
+            if (parallelresult_ != null)
+                parallelresult_(results);
+        }
+        public void execParallel(string body, string data, int start, int stop)
+        {
+            if (parallelcore_ != null)
+               parallelcore_(body,data,start,stop);
         }
 
         public void result(string coremsg)
@@ -77,28 +101,63 @@ namespace Spinach
             if (rescore_ != null)
                 rescore_(coremsg);
         }
-        //List<Element> elements;
-        public Core(PlotReceiver r)
+
+                
+        public void setSwarmObject(SwarmMemory sm)
         {
-           interp_visitor=new InterpreterVisitor();
-            interp_visitor.errorcore_ += new InterpreterVisitor.errorcoremsg(sendres);
+            smem = sm;
+            interp_visitor.setSwarmObject(sm);
+        }
+        public void setSwarm()
+        {
+            interp_visitor.setSwarm();
+        }
+
+        public void setFrontEnd(exec FrontEnd)
+        {
+            interp_visitor.setFE(FrontEnd);
+        }
+        //List<Element> elements;
+        public Core()
+        {
+             interp_visitor=new InterpreterVisitor();
+             interp_visitor.errorcore_ += new InterpreterVisitor.errorcoremsg(sendres);
              interp_visitor.rescore_ += new InterpreterVisitor.resultcore(result);
-             interp_visitor.setPlotObj(r);
+             
+             
+             //interp_visitor.setFE(FE);
+        }
+
+        public void setPlotObject(PlotReceiver plotObj)
+        {
+            interp_visitor.setPlotObj(plotObj);
         }
         public void setAST(List<Element> elements)
         {
             //  element = ele;
-            for (int i = 0; i < elements.Count && flag!=1; i++)
+            if (elements != null)
             {
-                Element curr = elements[i];
-               // curr.Accept(print_visitor);
-                curr.Accept(interp_visitor);
-            }  
+                if (Visited != 1)
+                {
+                    totalLines = elements.Count;
+                    Visited = 1;
+                }
+                for (int i = 0; i < elements.Count && flag != 1; i++)
+                {
+                    Element curr = elements[i];
+                    // curr.Accept(print_visitor);
+                    curr.Accept(interp_visitor);
+                }
+                if(totalLines ==elements.Count && Visited==1)
+                   smem.clearMasterBackup(true);
+            }
         }
 
         public void clearVarMap()
         {
             interp_visitor.clearMap();
+            Visited = 0;
+            flag = -1;
 
         }
 
