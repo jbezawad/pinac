@@ -66,7 +66,7 @@ namespace Spinach
     private void Window_Loaded(object sender, RoutedEventArgs e)
     {
         txtSelfIP.Text = GetIP();
-        txtPort.Text = "8080";
+        txtPort.Text = "11001";
         txtSelfIP.Focus();
         txtSelfIP.SelectAll();
     }
@@ -154,12 +154,18 @@ namespace Spinach
           if (conn == true)
           {
               ProgConf winProgConf = new ProgConf(SC);
+              winProgConf.Conn += new ConnectionNotification(UnHide);
               winProgConf.setUserList(userList);
               winProgConf.setDetails(txtSelfIP.Text.Trim(), txtPort.Text.Trim(), txtUsername.Text.Trim());
               winProgConf.Show();
-              this.Close();
+              this.Hide();
           }
       }
+    }
+
+    void UnHide()
+    {
+        this.Show();
     }
   }
 }

@@ -1,4 +1,20 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////////
+//  MessageGenerator.cs - MessageGenerator module                               //
+//  ver 1.0                                                                     //
+//                                                                              //
+//  Language:      C#                                                           //
+//  Platform:      Visual Studio 2008SP1                                        //
+//  Application:   SPINACH                                                      //
+//  Author:        Shaonan Wang (swang25@syr.edu)                               //
+//                                                                              //
+//////////////////////////////////////////////////////////////////////////////////
+/*
+ * Maintenance History:
+ * ====================
+ * version 1.0 : 31 Oct. 2009
+ * - the initial version of the MessageGenerator module
+ */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,32 +106,32 @@ namespace Spinach
             return result;
         }
 
-        //public String msgRunRequest(String pid,String ipport)
-        //{
-        //    XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
-        //        new XElement("root", new XAttribute("type", "Run"), new XAttribute("pid", ipport))
-        //        );
-        //    string result = xml.ToString();
-        //    return result;
-        //}
+        public String msgRunRequest(String pid, String ipport)
+        {
+            XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("root", new XAttribute("type", "Run"), new XAttribute("pid", pid), new XAttribute("ipport", ipport))
+                );
+            string result = xml.ToString();
+            return result;
+        }
 
-        //public String msgRunFailReply(String pid,String ipport)
-        //{
-        //    XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
-        //        new XElement("root", new XAttribute("type", "RunFail"), new XAttribute("pid", ipport))
-        //        );
-        //    string result = xml.ToString();
-        //    return result;
-        //}
+        public String msgRunFailReply(String pid)
+        {
+            XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("root", new XAttribute("type", "RunFail"), new XAttribute("pid", pid))
+                );
+            string result = xml.ToString();
+            return result;
+        }
 
-        //public String msgRunSucessReply(String pid, String ipport)
-        //{
-        //    XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
-        //        new XElement("root", new XAttribute("type", "RunSucess"), new XAttribute("pid", ipport))
-        //        );
-        //    string result = xml.ToString();
-        //    return result;
-        //}
+        public String msgRunSucessReply(String pid)
+        {
+            XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
+                new XElement("root", new XAttribute("type", "RunSuccess"), new XAttribute("pid", pid))
+                );
+            string result = xml.ToString();
+            return result;
+        }
         //public String msgCancleRun(String pid)
         //{
         //    XDocument xml = new XDocument(new XDeclaration("1.0", "utf-8", "yes"),
@@ -158,7 +174,5 @@ namespace Spinach
             string result = xml.ToString();
             return result;
         }
-
-        //public String msgProgram(ProgramInfo prog) { return " "; }
     }
 }

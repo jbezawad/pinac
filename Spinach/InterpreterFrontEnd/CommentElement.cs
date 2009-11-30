@@ -15,6 +15,9 @@ using System.Collections;
 
 public class CommentElement : Element
 {
+    public CommentElement()
+    {
+    }
     public override void Accept(Visitor visitor)
     {
         visitor.VisitCommentElement(this);

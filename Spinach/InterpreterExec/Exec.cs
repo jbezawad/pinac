@@ -30,10 +30,12 @@ namespace Spinach
             if (errEvent != null)
                 errEvent(code, message);
         }
-        public executor(PlotReceiver plot)
+
+        public executor()
         {
-            coreObject = new Core(plot);
+            coreObject = new Core();
             frontEnd = new exec();
+            this.setFrontEndToCore();
             frontEnd.error_ +=new exec.errorreport(Onerror);
             frontEnd.astEvent += new Spinach.exec.ast(AST);
             coreObject.errorcore_ +=new Core.errorcoremsg(Onerror);
@@ -58,34 +60,53 @@ namespace Spinach
         }
         public void AST(List<Element> elements)
         {
-            coreObject.clearVarMap();
             coreObject.setAST(elements);
         }
-    }
-}
 
-
-
-#if TEST_EXEC
-
-
-
-namespace Spinach
-{
-    public class UI
-    {
-        public static void Main(string[] args)
+        public void setSMObject(SwarmMemory sm)
         {
-            PlotReceiver plot = new PlotReceiver();
-            Core obj = new Core(plot);
-            executor obj1 = new executor(plot);
-            obj1.errEvent += new executor.err(error);
-            obj1.VisitLine("ubPlot(1,a,\"abc\",1D);vec[i]=i + 2;mat[i][j] = i + 2;");
+            coreObject.setSwarmObject(sm);
         }
-        public static void error(int code, string message)
+
+        public void setPlotObject(PlotReceiver plot)
         {
-            Console.Write(code + " " + message);
+            coreObject.setPlotObject(plot);
+        }
+
+        public void setFrontEndToCore() 
+        {
+            coreObject.setFrontEnd(frontEnd);
+        }
+
+        public void clearCoreValues()
+        {
+            coreObject.clearVarMap();
         }
     }
 }
-#endif
+
+
+
+//#if TEST_EXEC
+
+
+
+//namespace Spinach
+//{
+//    public class UI
+//    {
+//        public static void Main(string[] args)
+//        {
+//            PlotReceiver plot = new PlotReceiver();
+//            Core obj = new Core();
+//            executor obj1 = new executor(plot);
+//            obj1.errEvent += new executor.err(error);
+//            obj1.VisitLine("ubPlot(1,a,\"abc\",1D);vec[i]=i + 2;mat[i][j] = i + 2;");
+//        }
+//        public static void error(int code, string message)
+//        {
+//            Console.Write(code + " " + message);
+//        }
+//    }
+//}
+//#endif

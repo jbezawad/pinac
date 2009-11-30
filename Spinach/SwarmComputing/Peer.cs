@@ -1,4 +1,20 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////////
+//  Peer.cs - Swarm connection infomation module                                //
+//  ver 1.0                                                                     //
+//                                                                              //
+//  Language:      C#                                                           //
+//  Platform:      Visual Studio 2008SP1                                        //
+//  Application:   SPINACH                                                      //
+//  Author:        Shaonan Wang (swang25@syr.edu)                               //
+//                                                                              //
+//////////////////////////////////////////////////////////////////////////////////
+/*
+ * Maintenance History:
+ * ====================
+ * version 1.0 : 24 Oct. 2009
+ * - the initial version of the Peer module
+ */
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +31,7 @@ namespace Spinach
         public String mPort;
         public String mName;
         public String mCPU;
+        public String mDelay;
     }
 
     public struct Heartbeat
@@ -30,8 +47,8 @@ namespace Spinach
 
 
         ////////////////////////////////////////////////////////////////////////////////
-        
-        
+
+
         //connection part
         Peer mPeer = new Peer();
 
@@ -42,10 +59,10 @@ namespace Spinach
         //shared infomation part
         private String Master;
         private String Backup;
-        private Hashtable IPtoPeer=new Hashtable();//ip:port->peer object
-        private Hashtable NametoIP=new Hashtable();//username->ip:port
+        private Hashtable IPtoPeer = new Hashtable();//ip:port->peer object
+        private Hashtable NametoIP = new Hashtable();//username->ip:port
         private Hashtable IPtoHeartbeat = new Hashtable();//ip:port->heartbeat object
-        
+
 
         public void SetIP(String str) { mPeer.mIP = str; }
         public String GetIP() { return mPeer.mIP; }
@@ -59,17 +76,6 @@ namespace Spinach
         public void SetCPU(String str) { mPeer.mCPU = str; }
         public String GetCPU() { return mPeer.mCPU; }
 
-        //public void SetFlag(String pid,String flag) 
-        //{
-        //    RunFlag[pid] = flag;
-        //}
-        //public String GetFlag(String pid) 
-        //{
-        //    if(RunFlag.Contains(pid))
-        //        return RunFlag[pid].ToString();
-        //    else
-        //        return "-1";
-        //}
 
         public void SetMaster(String str) { Master = str; }
         public String GetMaster() { return Master; }
@@ -80,15 +86,13 @@ namespace Spinach
         public int InsertPeer(String ip, String port, String name, String cpu)
         {
             string ipport = ip + ":" + port;
-            Peer nPeer=new Peer();
-            nPeer.mIP=ip;
-            nPeer.mPort=port;
-            nPeer.mName=name;
-            nPeer.mCPU=cpu;
+            Peer nPeer = new Peer();
+            nPeer.mIP = ip;
+            nPeer.mPort = port;
+            nPeer.mName = name;
+            nPeer.mCPU = cpu;
             IPtoPeer[ipport] = nPeer;
             NametoIP[name] = ipport;
-
-            
 
 
             //////////////////////////////
@@ -105,8 +109,12 @@ namespace Spinach
                 Peer temp = (Peer)IPtoPeer[ipport];
                 string name = temp.mName;
                 IPtoPeer.Remove(ipport);
-                if(NametoIP.Contains(name))
+                if (NametoIP.Contains(name))
                     NametoIP.Remove(name);
+                ///////////////////////
+                if (ListChanged != null)
+                    ListChanged(IPtoPeer);
+                /////////////////////////////
                 return 1;
             }
             else
@@ -125,52 +133,20 @@ namespace Spinach
 
         public Hashtable GetIPtoPeer() { return IPtoPeer; }
         public Hashtable GetNametoIP() { return NametoIP; }
+        public Hashtable GetPidtoProgram() { return Program; }
 
         public void InsertProg(String pid, SwarmMemory prog)
         {
             Program[pid] = prog;
         }
 
-        //public int RemoveProg(String pid) 
-        //{
-        //    if (Program.Contains(pid))
-        //    {
-        //        Program.Remove(pid);
-        //        return 1;
-        //    }
-        //    else
-        //        return 0; 
-        //}
-
-        public SwarmMemory GetProg(String pid) 
+        public SwarmMemory GetProg(String pid)
         {
             SwarmMemory temp = null;
             if (Program.Contains(pid))
                 temp = (SwarmMemory)Program[pid];
-            return temp;  
+            return temp;
         }
 
-        public Hashtable GetPermission(String pid)
-        {
-            SwarmMemory temp=new SwarmMemory("-1","");
-            Hashtable result = new Hashtable();
-            if (Program.Contains(pid))
-                temp = (SwarmMemory)Program[pid];
-            result = temp.getPermissions();
-            foreach (DictionaryEntry item in result)
-            {
-                string[] temp1 = (string[])item.Value;
-                Console.WriteLine("IPPrt={0} read={1} write={2}", item.Key.ToString(), temp1[0], temp1[1]);
-            }
-            return result;
-        }
-        //public int CheckRun(String pid)
-        //{
-        //    return 0;
-        //}
-
-        //public String ProgOwner(String pid) { return "owner"; }
-        //public int ReadAccess(String pid) { return 0; }
-        //public int WriteAccess(String pid) { return 0; }
     }
 }

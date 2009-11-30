@@ -57,8 +57,8 @@ using System.Text;
             keys.Add("print");
             keys.Add("struct");
             keys.Add("T");
-            keys.Add("Vector");
-            keys.Add("Matrix");
+            keys.Add("vector");
+            keys.Add("matrix");
         }
 
     }

@@ -1,4 +1,24 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////////////////////////////
+//  client.cs - Socket client module                                            //
+//  ver 1.0                                                                     //
+//                                                                              //
+//  Language:      C#                                                           //
+//  Platform:      Visual Studio 2008SP1                                        //
+//  Application:   SPINACH                                                      //
+//  Author:        Zutao Zhu (zuzhu@syr.edu)                                    //
+//                 Shaonan Wang (swang25@syr.edu)                               //
+//                 Mohammad Irfan Khan Tareen (mtareen@syr.edu)                 //
+//                 Ronak Kirti Rathod (rkrathod@syr.edu)                        //
+//                                                                              //
+//////////////////////////////////////////////////////////////////////////////////
+/*
+ * Maintenance History:
+ * ====================
+ * version 1.0 : 3 Nov 2009
+ * - the initial version of the Socket client module
+ */
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
@@ -23,7 +43,6 @@ namespace Spinach
 
     public class AsynchronousClient
     {
-
         public delegate void EventHandlerExcep(int errorCode,string errorExcep);
         public event EventHandlerExcep ErrorExcep;
         public static ManualResetEvent[] resetEvent;
@@ -47,6 +66,7 @@ namespace Spinach
 
         // The response from the remote device.
         //private String response = String.Empty;
+
         public void SetSingleMsg(String ip, String port, String msg)
         {
             targetip = ip;
@@ -67,9 +87,6 @@ namespace Spinach
                 // Establish the remote endpoint for the socket.
                 // The name of the 
                 // remote device is "host.contoso.com".
-                //IPHostEntry ipHostInfo = Dns.GetHostAddresses("128.230.96.177");
-                //IPHostEntry ipHostInfo = Dns.Resolve(Dns.GetHostName());
-                //IPAddress ipAddress = ipHostInfo.AddressList[0];
                 IPAddress ipAddress = (Dns.GetHostAddresses(targetip))[0];
                 IPEndPoint remoteEP = new IPEndPoint(ipAddress,Int32.Parse(targetport));
 
@@ -106,20 +123,53 @@ namespace Spinach
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
-                throw (e);
+               //System.Windows.Forms.MessageBox.Show(e.Message, "Failed to send to single client.");
+                Console.WriteLine(e.Message);
             }
         }
 
         public void SendMultiClient()
         {
-            if (table.Count > 1)
+            try
             {
-                int count = 0;
-                resetEvent = new ManualResetEvent[table.Count - 1];
-                foreach (string IPPort in table.Keys)
+                if (table.Count > 1)
                 {
-                    if (IPPort != selfip)
+                    int count = 0;
+                    resetEvent = new ManualResetEvent[table.Count - 1];
+                    foreach (string IPPort in table.Keys)
+                    {
+                        if (IPPort != selfip)
+                        {
+                            resetEvent[count] = new ManualResetEvent(false);
+                            Peer mPeer = (Peer)table[IPPort];
+                            string ip = mPeer.mIP;
+                            int port = Int32.Parse(mPeer.mPort);
+                            BroadcastClient temp = new BroadcastClient(ip, port, MultiMsg);
+                            ThreadPool.QueueUserWorkItem(new WaitCallback(temp.StartClient), (object)count);
+                            count++;
+                        }
+                    }
+                    foreach (WaitHandle w in resetEvent)
+                    {
+                        w.WaitOne();
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                //System.Windows.Forms.MessageBox.Show(e.Message, "Failed to send to multiple client.");
+                Console.WriteLine(e.Message);
+            }
+        }
+        public void SendMultiClientChat()
+        {
+            try
+            {
+                if (table.Count > 1)
+                {
+                    int count = 0;
+                    resetEvent = new ManualResetEvent[table.Count];
+                    foreach (string IPPort in table.Keys)
                     {
                         resetEvent[count] = new ManualResetEvent(false);
                         Peer mPeer = (Peer)table[IPPort];
@@ -129,33 +179,15 @@ namespace Spinach
                         ThreadPool.QueueUserWorkItem(new WaitCallback(temp.StartClient), (object)count);
                         count++;
                     }
-                }
-                foreach (WaitHandle w in resetEvent)
-                {
-                    w.WaitOne();
+                    foreach (WaitHandle w in resetEvent)
+                    {
+                        w.WaitOne();
+                    }
                 }
             }
-        }
-        public void SendMultiClientChat()
-        {
-            if (table.Count > 1)
+            catch (Exception e)
             {
-                int count = 0;
-                resetEvent = new ManualResetEvent[table.Count];
-                foreach (string IPPort in table.Keys)
-                {
-                        resetEvent[count] = new ManualResetEvent(false);
-                        Peer mPeer = (Peer)table[IPPort];
-                        string ip = mPeer.mIP;
-                        int port = Int32.Parse(mPeer.mPort);
-                        BroadcastClient temp = new BroadcastClient(ip, port, MultiMsg);
-                        ThreadPool.QueueUserWorkItem(new WaitCallback(temp.StartClient), (object)count);
-                        count++;
-                }
-                foreach (WaitHandle w in resetEvent)
-                {
-                    w.WaitOne();
-                }
+                Console.WriteLine(e.Message);
             }
         }
         private void ConnectCallback(IAsyncResult ar)
@@ -179,11 +211,8 @@ namespace Spinach
                 Console.WriteLine("Please check the IP");
                 int ErrorCode = 10;
                 string Error = "Please Check the IP";
-                //////////////////////////////////////!!!!!!!!!!!!!!!///////////////////
                 if (ErrorExcep != null)
                     ErrorExcep(ErrorCode,Error);
-
-
             }
         }
 
@@ -245,12 +274,19 @@ namespace Spinach
 
         private void Send(Socket client, String data)
         {
-            // Convert the string data to byte data using ASCII encoding.
-            byte[] byteData = Encoding.ASCII.GetBytes(data);
+            try
+            {
+                // Convert the string data to byte data using ASCII encoding.
+                byte[] byteData = Encoding.ASCII.GetBytes(data);
 
-            // Begin sending the data to the remote device.
-            client.BeginSend(byteData, 0, byteData.Length, 0,
-                new AsyncCallback(SendCallback), client);
+                // Begin sending the data to the remote device.
+                client.BeginSend(byteData, 0, byteData.Length, 0,
+                    new AsyncCallback(SendCallback), client);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         private void SendCallback(IAsyncResult ar)
@@ -269,7 +305,8 @@ namespace Spinach
             }
             catch (Exception e)
             {
-                Console.WriteLine(e.ToString());
+                //System.Windows.Forms.MessageBox.Show(e.Message, "Send callback exception");
+                Console.WriteLine(e.Message);
             }
         }
     }
