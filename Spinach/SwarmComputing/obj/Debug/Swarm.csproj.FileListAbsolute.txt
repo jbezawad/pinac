@@ -1,7 +1,6 @@
 C:\Users\ROHAN\pinac\Spinach\SPINACH_DLLS\SwarmComputing.dll
 C:\Users\ROHAN\pinac\Spinach\SPINACH_DLLS\SwarmComputing.pdb
 C:\Users\ROHAN\pinac\Spinach\SwarmComputing\obj\Debug\ResolveAssemblyReference.cache
-C:\Users\ROHAN\pinac\Spinach\SwarmComputing\obj\Debug\Spinach.Form1.resources
 C:\Users\ROHAN\pinac\Spinach\SwarmComputing\obj\Debug\Spinach.Properties.Resources.resources
 C:\Users\ROHAN\pinac\Spinach\SwarmComputing\obj\Debug\Swarm.csproj.GenerateResource.Cache
 C:\Users\ROHAN\pinac\Spinach\SwarmComputing\obj\Debug\SwarmComputing.dll

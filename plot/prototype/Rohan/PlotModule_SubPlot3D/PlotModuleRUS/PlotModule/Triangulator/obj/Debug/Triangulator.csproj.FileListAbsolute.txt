@@ -1,0 +1,10 @@
+C:\Users\ROHAN\Desktop\PlotModuleRUS\Triangulator\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\ROHAN\Desktop\PlotModuleRUS\Triangulator\bin\Debug\Triangulator.dll
+C:\Users\ROHAN\Desktop\PlotModuleRUS\Triangulator\bin\Debug\Triangulator.pdb
+C:\Users\ROHAN\Desktop\PlotModuleRUS\Triangulator\obj\Debug\Triangulator.dll
+C:\Users\ROHAN\Desktop\PlotModuleRUS\Triangulator\obj\Debug\Triangulator.pdb
+E:\MS\2nd Sem\studio\PlotModuleRUS\PlotModule\Triangulator\bin\Debug\Triangulator.dll
+E:\MS\2nd Sem\studio\PlotModuleRUS\PlotModule\Triangulator\bin\Debug\Triangulator.pdb
+E:\MS\2nd Sem\studio\PlotModuleRUS\PlotModule\Triangulator\obj\Debug\ResolveAssemblyReference.cache
+E:\MS\2nd Sem\studio\PlotModuleRUS\PlotModule\Triangulator\obj\Debug\Triangulator.dll
+E:\MS\2nd Sem\studio\PlotModuleRUS\PlotModule\Triangulator\obj\Debug\Triangulator.pdb

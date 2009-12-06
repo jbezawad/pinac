@@ -446,11 +446,8 @@ namespace Spinach
             Point max = MaxPoint();
             double orix = ((max.X >= 0 && min.X <= 0) || (max.X <= 0 && min.X >= 0)) ? Math.Abs(min.X) + 1 : (min.X > 0) ? 1 : Math.Abs(min.X) + 1;
             double oriy = ((max.Y >= 0 && min.Y <= 0) || (max.Y <= 0 && min.Y >= 0)) ? Math.Abs(min.Y) + 1 : (min.Y > 0) ? 1 : Math.Abs(min.Y) + 1;
-<<<<<<< HEAD
             Origin = new Point(orix * spanX+20, activeCanvas.Height - ((oriy * spanY))-20);
-=======
             Origin = new Point(orix * spanX + 20, activeCanvas.Height - ((oriy * spanY)) - 20);
->>>>>>> 834c3dfe74b29eca92d2abc2e4ab2dbfd31f4590
         }
 
 
@@ -463,17 +460,16 @@ namespace Spinach
             Point maxPt = MaxPoint();
             double Xlen = ((maxPt.X >= 0 && minPt.X <= 0) || (maxPt.X <= 0 && minPt.X >= 0)) ? (Math.Abs(maxPt.X) + Math.Abs(minPt.X)) + 2 : (minPt.X > 0) ? maxPt.X + 2 : Math.Abs(minPt.X) + 2;
             double Ylen = ((maxPt.Y >= 0 && minPt.Y <= 0) || (maxPt.Y <= 0 && minPt.Y >= 0)) ? (Math.Abs(maxPt.Y) + Math.Abs(minPt.Y)) + 2 : (minPt.Y > 0) ? maxPt.Y + 2 : Math.Abs(minPt.Y) + 2;
-<<<<<<< HEAD
+
             spanX = (int)((activeCanvas.Width-40) / Xlen / factx);
             spanY = (int)((activeCanvas.Height-40) / Ylen / facty);
             spanX=spanX==0?1:spanX;
             spanY=spanY==0?1:spanY;
-=======
             spanX = (int)((activeCanvas.Width - 40) / Xlen / factx);
             spanY = (int)((activeCanvas.Height - 40) / Ylen / facty);
             spanX = spanX == 0 ? 1 : spanX;
             spanY = spanY == 0 ? 1 : spanY;
->>>>>>> 834c3dfe74b29eca92d2abc2e4ab2dbfd31f4590
+
         }
 
         // changed by rushabh

@@ -1,8 +1,6 @@
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Spinach.exe
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Spinach.pdb
-C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\InterpreterExec.dll
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\InterpreterFrontEnd.dll
-C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Plot.dll
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\SwarmComputing.dll
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\InterpreterCore.dll
 C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Antlr3.Runtime.dll
@@ -33,3 +31,7 @@ C:\Users\ROHAN\pinac\Spinach\UserInterface\obj\Debug\Spinach.Properties.Resource
 C:\Users\ROHAN\pinac\Spinach\UserInterface\obj\Debug\UserInterface.csproj.GenerateResource.Cache
 C:\Users\ROHAN\pinac\Spinach\UserInterface\obj\Debug\Spinach.exe
 C:\Users\ROHAN\pinac\Spinach\UserInterface\obj\Debug\Spinach.pdb
+C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\InterpreterExec.dll
+C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Plot.dll
+C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Triangulator.dll
+C:\Users\ROHAN\pinac\Spinach\UserInterface\bin\Debug\Triangulator.pdb

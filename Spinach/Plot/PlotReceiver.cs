@@ -148,20 +148,18 @@ public partial class PlotReceiver
     {
        
         paint.Plottitle = p1.PlotTitle==null?"sample plot":p1.PlotTitle;
-<<<<<<< HEAD
+
         //paint.X_Fact = paint.X_Fact!=1?paint.X_Fact:1;
         //paint.Y_Fact = paint.Y_Fact != 1 ? paint.Y_Fact : 1;
         //paint.Xtitle = paint.Xtitle != "X-Axis" ? paint.Xtitle : "X-Axis";//paint.Xtitle = "X-axis";
         //paint.Ytitle = paint.Ytitle != "Y-Axis" ? paint.Ytitle : "Y-Axis";//paint.Ytitle = "Y-axis";
         //paint.Mode = paint.Mode;
-        
-=======
+       
         //paint.X_Fact = 1;
         //paint.Y_Fact = 1;
         //paint.Xtitle = "X-axis";
         //paint.Ytitle = "Y-axis";
-        //paint.Mode = p1.ScaleMode;
->>>>>>> 834c3dfe74b29eca92d2abc2e4ab2dbfd31f4590
+        //paint.Mode = p1.ScaleMode
         
         switch (p1.Command)
         {
